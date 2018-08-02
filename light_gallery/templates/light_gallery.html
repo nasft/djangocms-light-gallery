@@ -11,14 +11,14 @@
 {% addtoblock "css" %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/django-light-gallery.min.css' %}" />
 <style>
-    .djangocms-light-gallery > * {
+    .djangocms-light-gallery__link {
         -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row }});
         flex-basis: calc(100% / {{ thumbnails_per_row }});
     }
 
     {% if thumbnails_per_row_sm %}
     @media (min-width: 576px) {
-        .djangocms-light-gallery > * {
+        .djangocms-light-gallery__link {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_sm }});
           flex-basis: calc(100% / {{ thumbnails_per_row_sm }});
         }
@@ -27,7 +27,7 @@
 
     {% if thumbnails_per_row_md %}
     @media (min-width: 768px) {
-        .djangocms-light-gallery > * {
+        .djangocms-light-gallery__link {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_md }});
           flex-basis: calc(100% / {{ thumbnails_per_row_md }});
         }
@@ -36,7 +36,7 @@
 
     {% if thumbnails_per_row_lg %}
     @media (min-width: 992px) {
-        .djangocms-light-gallery > * {
+        .djangocms-light-gallery__link {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_lg }});
           flex-basis: calc(100% / {{ thumbnails_per_row_lg }});
         }
@@ -45,7 +45,7 @@
 
     {% if thumbnails_per_row_xl %}
     @media (min-width: 1200px) {
-        .djangocms-light-gallery > * {
+        .djangocms-light-gallery__link {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_xl }});
           flex-basis: calc(100% / {{ thumbnails_per_row_xl }});
         }
@@ -161,8 +161,8 @@
 
 <div id="light-gallery-{{ id }}" class="djangocms-light-gallery {{ gallery_container_classes }}">
   {% for image in images %}
-  <a href="{{MEDIA_URL}}{{ image.file }}">
-    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}"></img>
+  <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
+    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image">
   </a>
   {% endfor %}
 </div>
