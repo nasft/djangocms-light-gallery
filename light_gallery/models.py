@@ -14,6 +14,37 @@ class LightGallery(CMSPlugin):
     )
     pageThumbWidth = models.CharField(_("Page Thumb Width"), max_length=255, default="150", help_text=_("Width of thumbnail on page"))
     pageThumbHeight = models.CharField(_("Page Thumb Height"), max_length=255, default="150", help_text=_("Height of thumbnail on page"))
+    gallery_container_classes = models.CharField(_("Page Thumb Container Classes (optional)"), help_text=_("Additional classes to add to the div that wraps the page gallery, separated by spaces"), blank=True, max_length=255)
+
+    thumbnails_per_row = models.PositiveIntegerField(
+        _("Thumbnails Per Grid Row (Base)"),
+        default=2,
+        help_text=_("Thumbnails per row (on all screens if no other size is specified)"),
+    )
+    thumbnails_per_row_sm = models.PositiveIntegerField(
+        _("Thumbnails Per Grid Row (Small screens)"),
+        null=True,
+        blank=True,
+        help_text=_("Thumbnails per row on screens >= 576px"),
+    )
+    thumbnails_per_row_md = models.PositiveIntegerField(
+        _("Thumbnails Per Grid Row (Medium screens)"),
+        null=True,
+        blank=True,
+        help_text=_("Thumbnails per row on screens >= 768px"),
+    )
+    thumbnails_per_row_lg = models.PositiveIntegerField(
+        _("Thumbnails Per Grid Row (Large screens)"),
+        null=True,
+        blank=True,
+        help_text=_("Thumbnails per row on screens >= 992px"),
+    )
+    thumbnails_per_row_xl = models.PositiveIntegerField(
+        _("Thumbnails Per Grid Row (Extra Large screens)"),
+        null=True,
+        blank=True,
+        help_text=_("Thumbnails per row on screens >= 1200px"),
+    )
 
     mode = models.CharField(_("Mode"), choices=MODES, default=MODES[0], help_text=_("Type of transition between images"), max_length=255)
     cssEasing = models.CharField(_("CSS Easing"), max_length=255, default="ease", help_text=_("Type of easing to be used for css animations"))

@@ -15,6 +15,12 @@ class LightGallery(CMSPluginBase):
         (None, {
             'fields': [
                 'folder',
+                ('thumbnails_per_row',
+                'thumbnails_per_row_sm',
+                'thumbnails_per_row_md',
+                'thumbnails_per_row_lg',
+                'thumbnails_per_row_xl',
+                'gallery_container_classes',),
                 ('pageThumbWidth',
                 'pageThumbHeight',),
             ]
@@ -181,7 +187,13 @@ class LightGallery(CMSPluginBase):
             'googlePlusDropdownText': instance.googlePlusDropdownText,
             'pinterest': instance.pinterest,
             'pinterestDropdownText': instance.pinterestDropdownText,
-        });
+            'thumbnails_per_row': instance.thumbnails_per_row,
+            'thumbnails_per_row_sm': instance.thumbnails_per_row_sm,
+            'thumbnails_per_row_md': instance.thumbnails_per_row_md,
+            'thumbnails_per_row_lg': instance.thumbnails_per_row_lg,
+            'thumbnails_per_row_xl': instance.thumbnails_per_row_xl,
+            'gallery_container_classes': instance.gallery_container_classes,
+        })
         return context
 
 plugin_pool.register_plugin(LightGallery)
