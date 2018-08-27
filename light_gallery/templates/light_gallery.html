@@ -11,14 +11,29 @@
 {% addtoblock "css" %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/django-light-gallery.min.css' %}" />
 <style>
-    .djangocms-light-gallery__link {
+    .djangocms-light-gallery__outer-container {
         -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row }});
         flex-basis: calc(100% / {{ thumbnails_per_row }});
     }
 
+    {% if thumbnail_border_size %}
+        .djangocms-light-gallery__image-container {
+            border-width: {{ thumbnail_border_size }}px;
+            border-style: solid;
+            border-color: {% firstof thumbnail_border_color 'black' %};
+        }
+    {% endif %}
+
+    {% if thumbnail_padding_size %}
+        .djangocms-light-gallery__image-container {
+            padding: {{ thumbnail_padding_size }}px;
+            background-color: {% firstof thumbnail_background_color '#ffeda9' %};
+        }
+    {% endif %}
+
     {% if thumbnails_per_row_sm %}
     @media (min-width: 576px) {
-        .djangocms-light-gallery__link {
+        .djangocms-light-gallery__outer-container {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_sm }});
           flex-basis: calc(100% / {{ thumbnails_per_row_sm }});
         }
@@ -27,7 +42,7 @@
 
     {% if thumbnails_per_row_md %}
     @media (min-width: 768px) {
-        .djangocms-light-gallery__link {
+        .djangocms-light-gallery__outer-container {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_md }});
           flex-basis: calc(100% / {{ thumbnails_per_row_md }});
         }
@@ -36,7 +51,7 @@
 
     {% if thumbnails_per_row_lg %}
     @media (min-width: 992px) {
-        .djangocms-light-gallery__link {
+        .djangocms-light-gallery__outer-container {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_lg }});
           flex-basis: calc(100% / {{ thumbnails_per_row_lg }});
         }
@@ -45,7 +60,7 @@
 
     {% if thumbnails_per_row_xl %}
     @media (min-width: 1200px) {
-        .djangocms-light-gallery__link {
+        .djangocms-light-gallery__outer-container {
           -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_xl }});
           flex-basis: calc(100% / {{ thumbnails_per_row_xl }});
         }
@@ -92,6 +107,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $("#light-gallery-{{ id }}").lightGallery({
+      selector: ".djangocms-light-gallery__link",
       mode: "{{ mode }}",
       cssEasing: "{{ cssEasing }}",
       easing: "{{ easing }}",
@@ -160,9 +176,28 @@
 {% endaddtoblock %}
 
 <div id="light-gallery-{{ id }}" class="djangocms-light-gallery {{ gallery_container_classes }}">
-  {% for image in images %}
-  <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
-    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image">
-  </a>
-  {% endfor %}
+    {% for image in images %}
+        <div class="djangocms-light-gallery__outer-container">
+            <div class="djangocms-light-gallery__image-container">
+                <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
+                    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image" alt="{{ image.default_alt_text }}">
+                </a>
+                {% if image.name or image.default_caption %}
+                    <div class="djangocms-light-gallery__image-text-container">
+                        {% if image.name %}
+                            <h2 class="djangocms-light-gallery__image-name">
+                                {{ image.name }}
+                            </h2>
+                        {% endif %}
+
+                        {% if image.description %}
+                            <p class="djangocms-light-gallery__image-caption">
+                                {{ image.description }}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 </div>
