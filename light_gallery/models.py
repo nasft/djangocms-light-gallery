@@ -8,7 +8,7 @@ import uuid
 
 MODES = [['lg-slide', 'lg-slide'], ['lg-fade', 'lg-fade'], ['lg-zoom-in', 'lg-zoom-in'], ['lg-zoom-in-big', 'lg-zoom-in-big'], ['lg-zoom-out', 'lg-zoom-out'], ['lg-zoom-out-big', 'lg-zoom-out-big'], ['lg-zoom-out-in', 'lg-zoom-out-in'], ['lg-zoom-in-out', 'lg-zoom-in-out'], ['lg-soft-zoom', 'lg-soft-zoom'], ['lg-scale-up', 'lg-scale-up'], ['lg-slide-circular', 'lg-slide-circular'], ['lg-slide-circular-vertical', 'lg-slide-circular-vertical'], ['lg-slide-vertical', 'lg-slide-vertical'], ['lg-slide-vertical-growth', 'lg-slide-vertical-growth'], ['lg-slide-skew-only', 'lg-slide-skew-only'], ['lg-slide-skew-only-rev', 'lg-slide-skew-only-rev'], ['lg-slide-skew-only-y', 'lg-slide-skew-only-y'], ['lg-slide-skew-only-y-rev', 'lg-slide-skew-only-y-rev'], ['lg-slide-skew', 'lg-slide-skew'], ['lg-slide-skew-rev', 'lg-slide-skew-rev'], ['lg-slide-skew-cross', 'lg-slide-skew-cross'], ['lg-slide-skew-cross-rev', 'lg-slide-skew-cross-rev'], ['lg-slide-skew-ver', 'lg-slide-skew-ver'], ['lg-slide-skew-ver-rev', 'lg-slide-skew-ver-rev'], ['lg-slide-skew-ver-cross', 'lg-slide-skew-ver-cross'], ['lg-slide-skew-ver-cross-rev', 'lg-slide-skew-ver-cross-rev'], ['lg-lollipop', 'lg-lollipop'], ['lg-lollipop-rev', 'lg-lollipop-rev'], ['lg-rotate', 'lg-rotate'], ['lg-rotate-rev', 'lg-rotate-rev'], ['lg-tube', 'lg-tube']]
 CURRENT_PAGER_POSITIONS = [['left', 'Left'], ['middle', 'Middle'], ['right', 'Right']]
-THUMBNAIL_ORIENTATIONS = [['v', 'Vertical'], ['h', 'Horizontal (text on right)'], ['hr', 'Horizontal (text on left)']]
+THUMBNAIL_ORIENTATIONS = [['v', 'Vertical'], ['h', 'Horizontal (text on right)'], ['hr', 'Horizontal (text on left)'], ['c', 'Columns']]
 
 class LightGallery(CMSPlugin):
     folder = FilerFolderField(
