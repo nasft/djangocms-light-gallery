@@ -8,6 +8,7 @@ import uuid
 
 MODES = [['lg-slide', 'lg-slide'], ['lg-fade', 'lg-fade'], ['lg-zoom-in', 'lg-zoom-in'], ['lg-zoom-in-big', 'lg-zoom-in-big'], ['lg-zoom-out', 'lg-zoom-out'], ['lg-zoom-out-big', 'lg-zoom-out-big'], ['lg-zoom-out-in', 'lg-zoom-out-in'], ['lg-zoom-in-out', 'lg-zoom-in-out'], ['lg-soft-zoom', 'lg-soft-zoom'], ['lg-scale-up', 'lg-scale-up'], ['lg-slide-circular', 'lg-slide-circular'], ['lg-slide-circular-vertical', 'lg-slide-circular-vertical'], ['lg-slide-vertical', 'lg-slide-vertical'], ['lg-slide-vertical-growth', 'lg-slide-vertical-growth'], ['lg-slide-skew-only', 'lg-slide-skew-only'], ['lg-slide-skew-only-rev', 'lg-slide-skew-only-rev'], ['lg-slide-skew-only-y', 'lg-slide-skew-only-y'], ['lg-slide-skew-only-y-rev', 'lg-slide-skew-only-y-rev'], ['lg-slide-skew', 'lg-slide-skew'], ['lg-slide-skew-rev', 'lg-slide-skew-rev'], ['lg-slide-skew-cross', 'lg-slide-skew-cross'], ['lg-slide-skew-cross-rev', 'lg-slide-skew-cross-rev'], ['lg-slide-skew-ver', 'lg-slide-skew-ver'], ['lg-slide-skew-ver-rev', 'lg-slide-skew-ver-rev'], ['lg-slide-skew-ver-cross', 'lg-slide-skew-ver-cross'], ['lg-slide-skew-ver-cross-rev', 'lg-slide-skew-ver-cross-rev'], ['lg-lollipop', 'lg-lollipop'], ['lg-lollipop-rev', 'lg-lollipop-rev'], ['lg-rotate', 'lg-rotate'], ['lg-rotate-rev', 'lg-rotate-rev'], ['lg-tube', 'lg-tube']]
 CURRENT_PAGER_POSITIONS = [['left', 'Left'], ['middle', 'Middle'], ['right', 'Right']]
+THUMBNAIL_ORIENTATIONS = [['v', 'Vertical'], ['h', 'Horizontal (text on right)'], ['hr', 'Horizontal (text on left)']]
 
 class LightGallery(CMSPlugin):
     folder = FilerFolderField(
@@ -16,6 +17,13 @@ class LightGallery(CMSPlugin):
     pageThumbWidth = models.CharField(_("Page Thumb Width"), max_length=255, default="150", help_text=_("Width of thumbnail on page"))
     pageThumbHeight = models.CharField(_("Page Thumb Height"), max_length=255, default="150", help_text=_("Height of thumbnail on page"))
     gallery_container_classes = models.CharField(_("Page Thumb Container Classes (optional)"), help_text=_("Additional classes to add to the div that wraps the page gallery, separated by spaces"), blank=True, max_length=255)
+
+    thumbnail_orientation = models.CharField(
+        _("Orientation of thumbnail elements"),
+        choices=THUMBNAIL_ORIENTATIONS,
+        default=THUMBNAIL_ORIENTATIONS[0][0],
+        max_length=max([len(x[0]) for x in THUMBNAIL_ORIENTATIONS]),
+    )
 
     thumbnail_border_size = models.PositiveIntegerField(
         _("Width of thumbnail border (in pixels)"),

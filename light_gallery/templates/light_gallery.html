@@ -22,6 +22,15 @@
             border-style: solid;
             border-color: {% firstof thumbnail_border_color 'black' %};
         }
+
+        .djangocms-light-gallery__image--horizontal {
+            margin-right: {{ thumbnail_padding_size }}px;
+        }
+
+        .djangocms-light-gallery__image--horizontal-reverse {
+            margin-left: {{ thumbnail_padding_size }}px;
+            margin-right: 0;
+        }
     {% endif %}
 
     {% if thumbnail_padding_size %}
@@ -178,26 +187,26 @@
 <div id="light-gallery-{{ id }}" class="djangocms-light-gallery {{ gallery_container_classes }}">
     {% for image in images %}
         <div class="djangocms-light-gallery__outer-container">
-            <div class="djangocms-light-gallery__image-container">
-                <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
-                    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image" alt="{{ image.default_alt_text }}">
-                </a>
-                {% if image.name or image.default_caption %}
-                    <div class="djangocms-light-gallery__image-text-container">
-                        {% if image.name %}
-                            <h2 class="djangocms-light-gallery__image-name">
-                                {{ image.name }}
-                            </h2>
-                        {% endif %}
+            <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
+                <div class="djangocms-light-gallery__image-container{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image-container--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-container--horizontal-reverse{% endif %}">
+                    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation != 'v' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal-reverse{% endif %}" alt="{{ image.default_alt_text }}">
+                    {% if image.name or image.default_caption %}
+                        <div class="djangocms-light-gallery__image-text-container">
+                            {% if image.name %}
+                                <h2 class="djangocms-light-gallery__image-name">
+                                    {{ image.name }}
+                                </h2>
+                            {% endif %}
 
-                        {% if image.description %}
-                            <p class="djangocms-light-gallery__image-caption">
-                                {{ image.description }}
-                            </p>
-                        {% endif %}
-                    </div>
-                {% endif %}
-            </div>
+                            {% if image.description %}
+                                <p class="djangocms-light-gallery__image-caption">
+                                    {{ image.description }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </a>
         </div>
     {% endfor %}
 </div>

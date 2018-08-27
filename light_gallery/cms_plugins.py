@@ -15,7 +15,8 @@ class LightGallery(CMSPluginBase):
         (None, {
             'fields': [
                 'folder',
-                ('thumbnail_border_size',
+                ('thumbnail_orientation',
+                'thumbnail_border_size',
                 'thumbnail_border_color',
                 'thumbnail_padding_size',
                 'thumbnail_background_color',
@@ -191,6 +192,7 @@ class LightGallery(CMSPluginBase):
             'googlePlusDropdownText': instance.googlePlusDropdownText,
             'pinterest': instance.pinterest,
             'pinterestDropdownText': instance.pinterestDropdownText,
+            'thumbnail_orientation': instance.thumbnail_orientation,
             'thumbnail_border_size': instance.thumbnail_border_size,
             'thumbnail_border_color': instance.thumbnail_border_color,
             'thumbnail_padding_size': instance.thumbnail_padding_size,
