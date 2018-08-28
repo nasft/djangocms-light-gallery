@@ -37,6 +37,7 @@
             border-color: {% firstof thumbnail_border_color 'black' %};
         }
 
+        {% if thumbnail_padding_size %}
         .djangocms-light-gallery__image--horizontal {
             margin-right: {{ thumbnail_padding_size }}px;
         }
@@ -45,6 +46,7 @@
             margin-left: {{ thumbnail_padding_size }}px;
             margin-right: 0;
         }
+        {% endif %}
     {% endif %}
 
     {% if thumbnail_padding_size %}
