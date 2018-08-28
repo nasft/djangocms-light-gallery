@@ -245,7 +245,7 @@
         <div class="djangocms-light-gallery__outer-container">
             <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
                 <div class="djangocms-light-gallery__image-container{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image-container--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-container--horizontal-reverse{% endif %}">
-                    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal-reverse{% endif %}" alt="{{ image.default_alt_text }}">
+                    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal-reverse{% endif %}" alt="{% firstof image.default_alt_text '' %}">
                     {% if image.name or image.default_caption %}
                         <div class="djangocms-light-gallery__image-text-container">
                             {% if image.name %}
