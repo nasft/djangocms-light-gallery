@@ -249,13 +249,13 @@
                     {% if image.name or image.default_caption %}
                         <div class="djangocms-light-gallery__image-text-container">
                             {% if image.name %}
-                                <h2 class="djangocms-light-gallery__image-name">
+                                <h2 class="djangocms-light-gallery__image-name{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-name--horizontal{% endif %}">
                                     {{ image.name }}
                                 </h2>
                             {% endif %}
 
                             {% if image.description %}
-                                <p class="djangocms-light-gallery__image-caption">
+                                <p class="djangocms-light-gallery__image-caption{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-caption--horizontal{% endif %}">
                                     {{ image.description }}
                                 </p>
                             {% endif %}
