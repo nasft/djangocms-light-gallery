@@ -11,45 +11,125 @@
 {% addtoblock "css" %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/django-light-gallery.min.css' %}" />
 <style>
-    .djangocms-light-gallery__link {
-        -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row }});
-        flex-basis: calc(100% / {{ thumbnails_per_row }});
-    }
+    {% if thumbnail_orientation == 'c' %}
+        .djangocms-light-gallery {
+            -webkit-column-count: {{ thumbnails_per_row }};
+            -moz-column-count: {{ thumbnails_per_row }};
+            column-count: {{ thumbnails_per_row }};
+            display: block !important;
+            column-gap: 0.5rem;
+        }
+        .djangocms-light-gallery__outer-container {
+            margin-bottom: 0.5rem;
+            padding: 0 !important;
+        }
+    {% else %}
+        .djangocms-light-gallery__outer-container {
+            -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row }});
+            flex-basis: calc(100% / {{ thumbnails_per_row }});
+        }
+    {% endif %}
+
+    {% if thumbnail_border_size %}
+        .djangocms-light-gallery__image-container {
+            border-width: {{ thumbnail_border_size }}px;
+            border-style: solid;
+            border-color: {% firstof thumbnail_border_color 'black' %};
+        }
+
+        {% if thumbnail_padding_size %}
+        .djangocms-light-gallery__image--horizontal {
+            margin-right: {{ thumbnail_padding_size }}px;
+        }
+
+        .djangocms-light-gallery__image--horizontal-reverse {
+            margin-left: {{ thumbnail_padding_size }}px;
+            margin-right: 0;
+        }
+        {% endif %}
+    {% endif %}
+
+    {% if thumbnail_padding_size %}
+        .djangocms-light-gallery__image-container {
+            padding: {{ thumbnail_padding_size }}px;
+            background-color: {% firstof thumbnail_background_color '#ffeda9' %};
+        }
+    {% endif %}
 
     {% if thumbnails_per_row_sm %}
-    @media (min-width: 576px) {
-        .djangocms-light-gallery__link {
-          -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_sm }});
-          flex-basis: calc(100% / {{ thumbnails_per_row_sm }});
-        }
-    }
+        {% if thumbnail_orientation == 'c' %}
+            @media (min-width: 576px) {
+                .djangocms-light-gallery {
+                    -webkit-column-count: {{ thumbnails_per_row_sm }};
+                    -moz-column-count: {{ thumbnails_per_row_sm }};
+                    column-count: {{ thumbnails_per_row_sm }};
+                }
+            }
+        {% else %}
+            @media (min-width: 576px) {
+                .djangocms-light-gallery__outer-container {
+                  -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_sm }});
+                  flex-basis: calc(100% / {{ thumbnails_per_row_sm }});
+                }
+            }
+        {% endif %}
     {% endif %}
 
     {% if thumbnails_per_row_md %}
-    @media (min-width: 768px) {
-        .djangocms-light-gallery__link {
-          -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_md }});
-          flex-basis: calc(100% / {{ thumbnails_per_row_md }});
-        }
-    }
+        {% if thumbnail_orientation == 'c' %}
+            @media (min-width: 768px) {
+                .djangocms-light-gallery {
+                    -webkit-column-count: {{ thumbnails_per_row_md }};
+                    -moz-column-count: {{ thumbnails_per_row_md }};
+                    column-count: {{ thumbnails_per_row_md }};
+                }
+            }
+        {% else %}
+            @media (min-width: 768px) {
+                .djangocms-light-gallery__outer-container {
+                  -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_md }});
+                  flex-basis: calc(100% / {{ thumbnails_per_row_md }});
+                }
+            }
+        {% endif %}
     {% endif %}
 
     {% if thumbnails_per_row_lg %}
-    @media (min-width: 992px) {
-        .djangocms-light-gallery__link {
-          -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_lg }});
-          flex-basis: calc(100% / {{ thumbnails_per_row_lg }});
-        }
-    }
+        {% if thumbnail_orientation == 'c' %}
+            @media (min-width: 992px) {
+                .djangocms-light-gallery {
+                    -webkit-column-count: {{ thumbnails_per_row_lg }};
+                    -moz-column-count: {{ thumbnails_per_row_lg }};
+                    column-count: {{ thumbnails_per_row_lg }};
+                }
+            }
+        {% else %}
+            @media (min-width: 992px) {
+                .djangocms-light-gallery__outer-container {
+                  -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_lg }});
+                  flex-basis: calc(100% / {{ thumbnails_per_row_lg }});
+                }
+            }
+        {% endif %}
     {% endif %}
 
     {% if thumbnails_per_row_xl %}
-    @media (min-width: 1200px) {
-        .djangocms-light-gallery__link {
-          -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_xl }});
-          flex-basis: calc(100% / {{ thumbnails_per_row_xl }});
-        }
-    }
+        {% if thumbnail_orientation == 'c' %}
+            @media (min-width: 1200px) {
+                .djangocms-light-gallery {
+                    -webkit-column-count: {{ thumbnails_per_row_xl }};
+                    -moz-column-count: {{ thumbnails_per_row_xl }};
+                    column-count: {{ thumbnails_per_row_xl }};
+                }
+            }
+        {% else %}
+            @media (min-width: 1200px) {
+                .djangocms-light-gallery__outer-container {
+                  -ms-flex-preferred-size: calc(100% / {{ thumbnails_per_row_xl }});
+                  flex-basis: calc(100% / {{ thumbnails_per_row_xl }});
+                }
+            }
+        {% endif %}
     {% endif %}
 </style>
 {% endaddtoblock %}
@@ -92,6 +172,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $("#light-gallery-{{ id }}").lightGallery({
+      selector: ".djangocms-light-gallery__link",
       mode: "{{ mode }}",
       cssEasing: "{{ cssEasing }}",
       easing: "{{ easing }}",
@@ -160,9 +241,28 @@
 {% endaddtoblock %}
 
 <div id="light-gallery-{{ id }}" class="djangocms-light-gallery {{ gallery_container_classes }}">
-  {% for image in images %}
-  <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
-    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image">
-  </a>
-  {% endfor %}
+    {% for image in images %}
+        <div class="djangocms-light-gallery__outer-container">
+            <a href="{{MEDIA_URL}}{{ image.file }}" class="djangocms-light-gallery__link">
+                <div class="djangocms-light-gallery__image-container{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image-container--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-container--horizontal-reverse{% endif %}">
+                    <img src="{% thumbnail image.file pageThumbWidthHeight upscale %}" class="djangocms-light-gallery__image{% if thumbnail_orientation == 'h' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal{% endif %}{% if thumbnail_orientation == 'hr' %} djangocms-light-gallery__image--horizontal-reverse{% endif %}" alt="{% firstof image.default_alt_text '' %}">
+                    {% if image.name or image.default_caption %}
+                        <div class="djangocms-light-gallery__image-text-container">
+                            {% if image.name %}
+                                <h2 class="djangocms-light-gallery__image-name{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-name--horizontal{% endif %}">
+                                    {{ image.name }}
+                                </h2>
+                            {% endif %}
+
+                            {% if image.description %}
+                                <p class="djangocms-light-gallery__image-caption{% if thumbnail_orientation == 'h' or thumbnail_orientation == 'hr' %} djangocms-light-gallery__image-caption--horizontal{% endif %}">
+                                    {{ image.description }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
 </div>
