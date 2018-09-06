@@ -147,7 +147,10 @@ class LightGallery(CMSPlugin):
 
     def get_folder_images(self):
         images = self.folder.files.instance_of(Image)
-        return images.filter(is_public=True)
+        return sorted(
+            list(images.filter(is_public=True)),
+            key=lambda image: image.name or image.original_filename,
+        )
 
     def generate_id(self):
         return str(uuid.uuid4().fields[-1])[:7]
