@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='lightgallery',
             name='thumbnail_orientation',
-            field=models.CharField(choices=[[b'v', b'Vertical'], [b'h', b'Horizontal (text on right)'], [b'hr', b'Horizontal (text on left)'], [b'c', b'Columns']], default=b'v', max_length=2, verbose_name='Orientation of thumbnail elements'),
+            field=models.CharField(choices=[['v', 'Vertical'], ['h', 'Horizontal (text on right)'], ['hr', 'Horizontal (text on left)'], ['c', 'Columns']], default='v', max_length=2, verbose_name='Orientation of thumbnail elements'),
         ),
         migrations.AddField(
             model_name='lightgallery',
